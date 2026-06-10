@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DMS Consultoria Funerária</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0d1b2a;--navy2:#112236;--navy3:#1a3a5c;
+  --red:#9b1c1c;--red2:#c0392b;
+  --gold:#c9a84c;--gold2:#e8c96a;
+  --white:#f5f0e8;--gray:#8a9ab0;--light:#d4dde8;
+  --sidebar:260px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh;}
+
+/* ── COVER ── */
+#cover{
+  min-height:100vh;display:flex;flex-direction:column;
+  background:linear-gradient(135deg,#060f18 0%,#0d1b2a 40%,#112236 100%);
+  position:relative;overflow:hidden;
+}
+#cover::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 70%);}
+#cover::after{content:'';position:absolute;bottom:-150px;left:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(155,28,28,.1) 0%,transparent 70%);}
+.cover-bar{height:4px;background:linear-gradient(90deg,transparent,var(--red),var(--gold),var(--red),transparent);}
+.cover-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative;z-index:1;}
+.cover-seal{width:100px;height:100px;border:2px solid rgba(201,168,76,.4);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 2.5rem;background:rgba(201,168,76,.05);}
+.cover-seal-txt{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;}
+.cover-seal-sub{font-family:'Barlow Condensed',sans-serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);margin-top:.1rem;}
+.cover-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.cover-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,6vw,5rem);font-weight:300;line-height:1.05;margin-bottom:.5rem;}
+.cover-title strong{font-weight:700;color:var(--gold);display:block;}
+.cover-title em{font-style:italic;color:var(--red2);display:block;font-size:.55em;margin-top:.3rem;}
+.cover-divider{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:2rem auto;}
+.cover-meta{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;}
+.cover-meta-item{text-align:center;}
+.cover-meta-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;}
+.cover-meta-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-top:.2rem;}
+.cover-author{border:1px solid rgba(201,168,76,.2);padding:1.5rem 2.5rem;display:inline-block;}
+.cover-author-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--white);}
+.cover-author-role{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:.3rem;}
+.cover-author-reg{font-size:.75rem;color:var(--gray);margin-top:.2rem;}
+.btn-cover{display:inline-flex;align-items:center;gap:.6rem;background:var(--red);color:var(--white);padding:1rem 2.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;border:none;cursor:pointer;margin-top:2.5rem;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));transition:background .3s,transform .2s;}
+.btn-cover:hover{background:var(--red2);transform:translateY(-2px);}
+
+/* ── APP LAYOUT ── */
+#app{display:none;flex:1;min-height:100vh;}
+.app-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:56px;background:rgba(13,27,42,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.2);display:flex;align-items:center;padding:0 1.5rem;gap:1rem;}
+.app-nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--gold);}
+.app-nav-logo span{color:var(--white);}
+.app-nav-tag{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);flex:1;}
+.btn-capa{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;cursor:pointer;transition:background .2s;}
+.btn-capa:hover{background:rgba(201,168,76,.1);}
+.btn-mob-menu{display:none;background:none;border:1px solid rgba(255,255,255,.2);color:var(--white);padding:.35rem .7rem;font-size:.8rem;cursor:pointer;}
+
+.app-body{display:flex;padding-top:56px;min-height:calc(100vh - 56px);}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar);flex-shrink:0;background:rgba(9,18,28,.98);border-right:1px solid rgba(201,168,76,.1);position:fixed;top:56px;bottom:0;left:0;overflow-y:auto;z-index:100;transition:transform .3s;}
+.sb-header{padding:1.2rem 1.5rem .8rem;border-bottom:1px solid rgba(255,255,255,.05);}
+.sb-label{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gray);}
+.sb-list{padding:.5rem 0 2rem;}
+.sb-item{display:flex;align-items:flex-start;gap:.8rem;padding:.75rem 1.5rem;cursor:pointer;border-left:3px solid transparent;transition:all .2s;}
+.sb-item:hover{background:rgba(201,168,76,.06);border-left-color:rgba(201,168,76,.3);}
+.sb-item.active{background:rgba(201,168,76,.1);border-left-color:var(--gold);}
+.sb-num{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:rgba(201,168,76,.25);line-height:1;flex-shrink:0;width:26px;transition:color .2s;}
+.sb-item.active .sb-num,.sb-item:hover .sb-num{color:var(--gold);}
+.sb-txt{flex:1;}
+.sb-title{font-size:.78rem;font-weight:600;color:var(--light);line-height:1.3;margin-bottom:.15rem;}
+.sb-item.active .sb-title{color:var(--white);}
+.sb-sub{font-size:.65rem;color:var(--gray);letter-spacing:.05em;}
+
+/* ── CONTENT ── */
+.content{margin-left:var(--sidebar);flex:1;padding:3rem 3.5rem 5rem;max-width:900px;}
+
+/* ── MODULE ── */
+.mod-page{display:none;}
+.mod-page.active{display:block;}
+
+.mod-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem;}
+.mod-eyebrow::after{content:'';flex:1;max-width:40px;height:1px;background:var(--gold);opacity:.4;}
+.mod-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:300;line-height:1.1;margin-bottom:.5rem;}
+.mod-h1 strong{font-weight:700;color:var(--gold);}
+.mod-lead{font-size:1rem;color:var(--light);line-height:1.8;font-weight:300;max-width:680px;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(201,168,76,.15);}
+
+/* SECTIONS */
+.sec{margin-bottom:2.5rem;}
+.sec-h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--white);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.07);}
+.sec-h2 span{color:var(--gold);}
+.sec-h3{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);margin:1.2rem 0 .5rem;}
+.sec p{font-size:.93rem;color:var(--light);line-height:1.85;font-weight:300;margin-bottom:.9rem;}
+.sec p strong{color:var(--white);font-weight:600;}
+
+/* CARDS GRID */
+.cards-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0 1.4rem;}
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:.8rem 0 1.4rem;}
+.card{background:rgba(17,34,54,.7);border:1px solid rgba(201,168,76,.12);border-left:3px solid var(--red);padding:1.2rem 1.4rem;}
+.card.gold{border-left-color:var(--gold);}
+.card.green{border-left-color:#27ae60;}
+.card-icon{font-size:1.5rem;margin-bottom:.5rem;}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+.card p{font-size:.82rem;color:var(--gray);line-height:1.6;margin:0;}
+
+/* QUOTE */
+.quote{border-left:3px solid var(--red);padding:1rem 1.5rem;background:rgba(155,28,28,.08);margin:1.2rem 0;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--white);line-height:1.6;}
+.quote-author{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-style:normal;display:block;margin-top:.5rem;}
+
+/* ALERT */
+.alert{padding:1rem 1.4rem;border-radius:2px;margin:1rem 0;font-size:.88rem;line-height:1.6;}
+.alert.warn{background:rgba(155,28,28,.1);border:1px solid rgba(155,28,28,.3);border-left:3px solid var(--red);color:var(--light);}
+.alert.info{background:rgba(26,58,92,.3);border:1px solid rgba(201,168,76,.2);border-left:3px solid var(--gold);color:var(--light);}
+.alert.success{background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.25);border-left:3px solid #27ae60;color:var(--light);}
+.alert strong{color:var(--white);}
+
+/* CHECKLIST */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.8rem 0 1.2rem;}
+.checklist li{display:flex;gap:.8rem;font-size:.88rem;color:var(--light);line-height:1.5;padding:.5rem .8rem;background:rgba(17,34,54,.5);border:1px solid rgba(255,255,255,.05);}
+.checklist li::before{content:'☐';color:var(--gold);flex-shrink:0;font-size:1rem;}
+.checklist li.done::before{content:'✓';color:#27ae60;}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;margin:1rem 0 1.4rem;}
+table{width:100%;border-collapse:collapse;font-size:.83rem;}
+th{background:rgba(201,168,76,.15);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.7rem 1rem;text-align:left;border-bottom:1px solid rgba(201,168,76,.25);}
+td{padding:.65rem 1rem;color:var(--light);border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top;}
+tr:hover td{background:rgba(26,58,92,.2);}
+
+/* PROCESS FLOW */
+.flow{display:flex;flex-direction:column;gap:.5rem;margin:.8rem 0 1.4rem;}
+.flow-step{display:flex;gap:1rem;align-items:flex-start;padding:1rem 1.2rem;background:rgba(17,34,54,.7);border:1px solid rgba(255,255,255,.06);position:relative;}
+.flow-step::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);}
+.flow-num{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;flex-shrink:0;width:32px;}
+.flow-body{}
+.flow-title{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin-bottom:.2rem;}
+.flow-desc{font-size:.82rem;color:var(--gray);line-height:1.55;}
+
+/* PILLARS */
+.pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin:.8rem 0 1.4rem;}
+.pillar{text-align:center;padding:1.5rem 1rem;background:rgba(17,34,54,.7);border:1px solid rgba(201,168,76,.12);border-top:3px solid var(--gold);}
+.pillar-icon{font-size:2rem;margin-bottom:.6rem;}
+.pillar-title{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin-bottom:.3rem;}
+.pillar p{font-size:.75rem;color:var(--gray);line-height:1.5;margin:0;}
+
+/* NAV BOTTOM */
+.nav-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(201,168,76,.15);flex-wrap:wrap;gap:.8rem;}
+.btn-nav{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(201,168,76,.3);background:none;color:var(--gold);cursor:pointer;transition:all .2s;}
+.btn-nav:hover{background:rgba(201,168,76,.1);}
+.btn-nav.next{background:var(--red);border-color:var(--red);color:var(--white);}
+.btn-nav.next:hover{background:var(--red2);}
+.btn-nav:disabled{opacity:.3;pointer-events:none;}
+
+/* DMS BOX */
+.dms-box{background:linear-gradient(135deg,rgba(9,18,28,.9),rgba(17,34,54,.9));border:1px solid rgba(201,168,76,.25);padding:2rem;margin:2rem 0;position:relative;overflow:hidden;}
+.dms-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));}
+.dms-box-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--gold);margin-bottom:.8rem;}
+.dms-box p{font-size:.88rem;color:var(--light);line-height:1.7;margin-bottom:.5rem;}
+.dms-box p:last-child{margin:0;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .content{margin-left:0;padding:2rem 1.2rem 4rem;}
+  .cards-2,.cards-3{grid-template-columns:1fr;}
+  .pillars{grid-template-columns:repeat(2,1fr);}
+  .btn-mob-menu{display:block;}
+  .app-nav-tag{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ CAPA ══════ -->
+<div id="cover">
+  <div class="cover-bar"></div>
+  <div class="cover-inner">
+    <div class="cover-seal">
+      <div class="cover-seal-txt">DMS</div>
+      <div class="cover-seal-sub">Consultoria</div>
+    </div>
+    <div class="cover-eyebrow">Apostila Profissional · 2025</div>
+    <h1 class="cover-title">
+      Consultoria
+      <strong>Funerária Estratégica</strong>
+      <em>Gestão · Processos · Resultados</em>
+    </h1>
+    <div class="cover-divider"></div>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="cover-meta-num">10</div><div class="cover-meta-lbl">Módulos</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-num">180+</div><div class="cover-meta-lbl">Páginas</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-num">3</div><div class="cover-meta-lbl">Públicos</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-num">∞</div><div class="cover-meta-lbl">Aplicação</div></div>
+    </div>
+    <div class="cover-author">
+      <div class="cover-author-name">Davi Moreira da Silva</div>
+      <div class="cover-author-role">Consultor Funerário · DMS Escola de Tanatopraxia</div>
+      <div class="cover-author-reg">Reg. 17046487 · CNPJ 66.552.163/0001-95 · (33) 99960-3507</div>
+    </div>
+    <button class="btn-cover" onclick="abrirApostila()">✦ Acessar a Apostila →</button>
+  </div>
+</div>
+
+<!-- ══════ APP ══════ -->
+<div id="app">
+  <nav class="app-nav">
+    <button class="btn-mob-menu" onclick="toggleSidebar()">☰</button>
+    <div class="app-nav-logo">DMS <span>Consultoria</span></div>
+    <div class="app-nav-tag">Apostila de Consultoria Funerária Estratégica</div>
+    <button class="btn-capa" onclick="voltarCapa()">← Capa</button>
+  </nav>
+
+  <div class="app-body">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sb-header"><div class="sb-label">Módulos da Apostila</div></div>
+      <div class="sb-list" id="sbList"></div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content" id="mainContent">
+      <!-- módulos injetados por JS -->
+    </main>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+//  DADOS DOS MÓDULOS
+// ══════════════════════════════════════════════════
+const MODS = [
+  // ── 0 ─ APRESENTAÇÃO ──
+  { id:'m0', num:'00', title:'Apresentação', sub:'DMS e o Consultor' },
+  // ── 1 ─ MERCADO ──
+  { id:'m1', num:'01', title:'O Mercado Funerário', sub:'Panorama e oportunidades' },
+  // ── 2 ─ ABERTURA ──
+  { id:'m2', num:'02', title:'Abertura e Legalização', sub:'Documentos e licenças' },
+  // ── 3 ─ GESTÃO OPERACIONAL ──
+  { id:'m3', num:'03', title:'Gestão Operacional', sub:'Processos e equipe' },
+  // ── 4 ─ FLUXO DE ATENDIMENTO ──
+  { id:'m4', num:'04', title:'Fluxo de Atendimento', sub:'Do óbito ao sepultamento' },
+  // ── 5 ─ HUMANIZAÇÃO ──
+  { id:'m5', num:'05', title:'Atendimento Humanizado', sub:'Família e luto' },
+  // ── 6 ─ FINANCEIRO ──
+  { id:'m6', num:'06', title:'Gestão Financeira', sub:'Precificação e custos' },
+  // ── 7 ─ MARKETING ──
+  { id:'m7', num:'07', title:'Marketing Funerário', sub:'Posicionamento e captação' },
+  // ── 8 ─ LEGISLAÇÃO ──
+  { id:'m8', num:'08', title:'Legislação e Compliance', sub:'Normas e biossegurança' },
+  // ── 9 ─ PESSOAS ──
+  { id:'m9', num:'09', title:'Gestão de Pessoas', sub:'RH e cultura organizacional' },
+  // ── 10 ─ PLANO DE AÇÃO ──
+  { id:'m10', num:'10', title:'Plano de Ação DMS', sub:'Implementação prática' },
+];
+
+// ══════════════════════════════════════════════════
+//  CONTEÚDO HTML DE CADA MÓDULO
+// ══════════════════════════════════════════════════
+const CONTENT = {
+
+m0: `
+<div class="mod-eyebrow">Módulo 00 · Apresentação</div>
+<h1 class="mod-h1">Bem-vindo à <strong>DMS Consultoria Funerária</strong></h1>
+<p class="mod-lead">Esta apostila é o material central da consultoria funerária conduzida por Davi Moreira da Silva. Foi desenvolvida para atender três perfis distintos: funerárias consolidadas que buscam eficiência, profissionais autônomos que desejam crescer, e empreendedores que desejam ingressar no setor com segurança e conhecimento.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Sobre a <span>DMS</span></h2>
+<p>A <strong>DMS Escola de Tanatopraxia</strong> nasceu da experiência acumulada de anos de atuação no setor funerário brasileiro. Fundada por Davi Moreira da Silva, a DMS se consolidou como referência em formação técnica e, agora, expande sua atuação para a consultoria estratégica de gestão funerária.</p>
+<p>Mais do que ensinar técnicas, a DMS transforma negócios funerários — estruturando processos, capacitando equipes e posicionando empresas para crescer com excelência, ética e respeito às famílias.</p>
+
+<div class="dms-box">
+<div class="dms-box-title">✦ Quem é Davi Moreira da Silva</div>
+<p>Gerente Operacional com trajetória consolidada no setor funerário. Especialista em Tanatopraxia Avançada, Reconstituição Facial e Gestão de Processos Funerários. Professor, consultor e referência nacional na área.</p>
+<p><strong>Registro:</strong> 17046487 &nbsp;|&nbsp; <strong>CNPJ:</strong> 66.552.163/0001-95 &nbsp;|&nbsp; <strong>Contato:</strong> (33) 99960-3507</p>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Para quem é esta <span>Apostila</span></h2>
+<div class="cards-3">
+<div class="card gold">
+<div class="card-icon">🏢</div>
+<div class="card-title">Funerárias Estabelecidas</div>
+<p>Empresas que querem estruturar processos, reduzir custos operacionais e elevar o padrão de atendimento.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">👤</div>
+<div class="card-title">Profissionais Autônomos</div>
+<p>Tanatopraxistas, zeladores e profissionais que desejam prestar serviços com padrão profissional elevado.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">🚀</div>
+<div class="card-title">Novos Empreendedores</div>
+<p>Pessoas que desejam abrir uma funerária com base sólida em gestão, legislação e operação.</p>
+</div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Como usar esta <span>Apostila</span></h2>
+<p>O conteúdo está organizado em <strong>10 módulos progressivos</strong>. Você pode navegar de forma sequencial ou acessar diretamente o módulo de interesse pelo menu lateral. Cada módulo contém:</p>
+<ul class="checklist">
+<li class="done">Conteúdo teórico fundamentado em legislação e boas práticas do setor</li>
+<li class="done">Ferramentas práticas: tabelas, checklists e fluxogramas</li>
+<li class="done">Alertas regulatórios e pontos críticos de atenção</li>
+<li class="done">Orientações diretas da consultoria DMS</li>
+<li class="done">Planos de ação aplicáveis imediatamente</li>
+</ul>
+</div>
+
+<div class="quote">
+"No setor funerário, profissionalismo não é opcional. É a única forma de honrar quem partiu e cuidar de quem fica."
+<span class="quote-author">— Davi Moreira da Silva, DMS Consultoria</span>
+</div>`,
+
+// ─────────────────────────────────────────────────
+m1: `
+<div class="mod-eyebrow">Módulo 01 · Panorama</div>
+<h1 class="mod-h1">O Mercado <strong>Funerário Brasileiro</strong></h1>
+<p class="mod-lead">O setor funerário é um dos poucos segmentos com demanda absolutamente garantida. Compreender seu tamanho, dinâmica e oportunidades é o primeiro passo para atuar com estratégia.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Panorama do <span>Setor no Brasil</span></h2>
+<p>O Brasil registra cerca de <strong>1,3 milhão de óbitos por ano</strong>, com tendência de crescimento em função do envelhecimento populacional. O setor funerário movimenta aproximadamente <strong>R$ 20 bilhões anuais</strong>, distribuídos entre funerárias, cemitérios, crematórios e serviços correlatos.</p>
+<p>Apesar do tamanho expressivo, o mercado ainda é amplamente <strong>fragmentado e pouco profissionalizado</strong> — o que representa uma enorme oportunidade para empresas e profissionais que adotam padrões de qualidade e gestão.</p>
+
+<div class="cards-2">
+<div class="card">
+<div class="card-icon">📊</div>
+<div class="card-title">Crescimento Projetado</div>
+<p>O IBGE projeta que o Brasil terá 30% de sua população com mais de 60 anos até 2050, aumentando significativamente a demanda por serviços funerários.</p>
+</div>
+<div class="card">
+<div class="card-icon">🏪</div>
+<div class="card-title">Fragmentação do Mercado</div>
+<p>Mais de 65% das funerárias brasileiras são micro ou pequenas empresas, muitas sem processos formalizados, representando oportunidade de diferenciação.</p>
+</div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Segmentos e <span>Oportunidades</span></h2>
+
+<div class="sec-h3">Serviços Funerários Tradicionais</div>
+<p>Remoção, velório, cortejo, sepultamento e embalsamamento. Ainda representam o core do negócio e a maior parte da receita para a maioria das funerárias.</p>
+
+<div class="sec-h3">Serviços Especializados em Expansão</div>
+<div class="cards-3">
+<div class="card gold">
+<div class="card-icon">🔬</div>
+<div class="card-title">Tanatopraxia</div>
+<p>Serviço de alto valor agregado e crescente demanda, especialmente para translados e casos especiais.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">🔥</div>
+<div class="card-title">Cremação</div>
+<p>Cresce 20% ao ano no Brasil. Exige estrutura diferente mas tem margens atrativas.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">🤝</div>
+<div class="card-title">Planos Funerários</div>
+<p>Receita recorrente com fidelização de clientes. Exige registro na SUSEP para alguns modelos.</p>
+</div>
+</div>
+
+<div class="sec-h3">Tendências do Setor</div>
+<div class="pillars">
+<div class="pillar"><div class="pillar-icon">💻</div><div class="pillar-title">Digitalização</div><p>Transmissão de velórios, orçamentos online e gestão digital de documentos.</p></div>
+<div class="pillar"><div class="pillar-icon">🌱</div><div class="pillar-title">Sustentabilidade</div><p>Cemitérios verdes, urnas biodegradáveis e cremação ecológica.</p></div>
+<div class="pillar"><div class="pillar-icon">❤️</div><div class="pillar-title">Humanização</div><p>Personalização do velório e serviços de apoio ao luto.</p></div>
+<div class="pillar"><div class="pillar-icon">🌍</div><div class="pillar-title">Internacionalização</div><p>Translados internacionais em crescimento com emigração brasileira.</p></div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Análise de <span>Competitividade</span></h2>
+<div class="tbl-wrap">
+<table>
+<tr><th>Fator</th><th>Setor Atual</th><th>Com Consultoria DMS</th></tr>
+<tr><td>Processos operacionais</td><td>Informais, dependentes de pessoas</td><td>Padronizados, documentados, replicáveis</td></tr>
+<tr><td>Atendimento à família</td><td>Variável, sem protocolo</td><td>Humanizado, com protocolo definido</td></tr>
+<tr><td>Precificação</td><td>Baseada em intuição</td><td>Baseada em custos e mercado</td></tr>
+<tr><td>Compliance legal</td><td>Frequentemente deficiente</td><td>Alinhado às normas ANVISA/CFM/NR-32</td></tr>
+<tr><td>Marketing</td><td>Boca a boca, sem estratégia</td><td>Posicionamento e presença digital</td></tr>
+<tr><td>Equipe</td><td>Sem treinamento formal</td><td>Capacitada, com cultura definida</td></tr>
+</table>
+</div>
+</div>
+
+<div class="alert info">
+<strong>📌 Visão DMS:</strong> Entrar ou se manter no mercado funerário com qualidade exige muito mais do que disponibilidade de veículo e urna. É necessário sistema, cultura e comprometimento com a excelência. A consultoria DMS existe para estruturar exatamente isso.
+</div>`,
+
+// ─────────────────────────────────────────────────
+m2: `
+<div class="mod-eyebrow">Módulo 02 · Legalização</div>
+<h1 class="mod-h1">Abertura e <strong>Legalização de Funerária</strong></h1>
+<p class="mod-lead">Abrir uma funerária exige cumprir exigências em múltiplas esferas: federal, estadual e municipal. Negligenciar qualquer uma dessas etapas expõe o negócio a multas, interdições e responsabilidade criminal.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Estrutura <span>Jurídica</span></h2>
+<p>A escolha do formato jurídico impacta tributos, responsabilidade e possibilidades de crescimento. As opções mais comuns para funerárias são:</p>
+<div class="cards-2">
+<div class="card gold">
+<div class="card-icon">🏢</div>
+<div class="card-title">MEI / ME / EPP</div>
+<p>Para operações de pequeno porte. MEI tem limitação de faturamento (R$ 81 mil/ano) e não pode ter funcionários CLT acima do permitido. ME e EPP têm mais flexibilidade.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">🏛️</div>
+<div class="card-title">LTDA / S.A.</div>
+<p>Para operações maiores ou com sócios. A Sociedade Limitada é a mais utilizada no setor. Permite divisão de quotas e maior proteção patrimonial dos sócios.</p>
+</div>
+</div>
+
+<div class="sec-h3">CNAEs Recomendados para Funerárias</div>
+<div class="tbl-wrap">
+<table>
+<tr><th>CNAE</th><th>Descrição</th><th>Obrigatoriedade</th></tr>
+<tr><td>9603-3/01</td><td>Gestão e manutenção de cemitérios</td><td>Se houver cemitério próprio</td></tr>
+<tr><td>9603-3/02</td><td>Serviços de cremação</td><td>Se oferecer cremação</td></tr>
+<tr><td>9603-3/03</td><td>Serviços de sepultamento</td><td>Principal atividade</td></tr>
+<tr><td>9603-3/04</td><td>Serviços de funerárias</td><td>Principal atividade</td></tr>
+<tr><td>9603-3/99</td><td>Atividades funerárias e serviços relacionados</td><td>Complementar</td></tr>
+<tr><td>8690-9/99</td><td>Outras atividades de atenção à saúde</td><td>Se houver tanatopraxia</td></tr>
+</table>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Documentação <span>Obrigatória</span></h2>
+<div class="flow">
+<div class="flow-step"><div class="flow-num">1</div><div class="flow-body"><div class="flow-title">CNPJ na Receita Federal</div><div class="flow-desc">Registro com CNAEs corretos. Base de toda a documentação subsequente. Pode ser feito online via Portal do Empreendedor ou com contador.</div></div></div>
+<div class="flow-step"><div class="flow-num">2</div><div class="flow-body"><div class="flow-title">Registro na Junta Comercial (JUCEA/JUCEES)</div><div class="flow-desc">Registro do contrato social ou requerimento de empresário para início legal das atividades.</div></div></div>
+<div class="flow-step"><div class="flow-num">3</div><div class="flow-body"><div class="flow-title">Alvará de Funcionamento Municipal</div><div class="flow-desc">Emitido pela Prefeitura após vistoria do imóvel. Exige localização em zona permitida pelo Plano Diretor do município.</div></div></div>
+<div class="flow-step"><div class="flow-num">4</div><div class="flow-body"><div class="flow-title">Licença Sanitária (Vigilância Sanitária)</div><div class="flow-desc">Obrigatória e renovável anualmente. Verifica estrutura física, equipamentos, EPIs, PGRSS e condições de biossegurança do laboratório de tanatopraxia.</div></div></div>
+<div class="flow-step"><div class="flow-num">5</div><div class="flow-body"><div class="flow-title">Licença Ambiental (IBAMA/Secretaria Estadual)</div><div class="flow-desc">Exigida para crematórios e cemitérios. Funerárias comuns geralmente precisam de licença simplificada para descarte de resíduos.</div></div></div>
+<div class="flow-step"><div class="flow-num">6</div><div class="flow-body"><div class="flow-title">PGRSS (Plano de Gerenciamento de Resíduos)</div><div class="flow-desc">Documento obrigatório elaborado por profissional habilitado. Detalha coleta, armazenamento e descarte de todos os resíduos gerados.</div></div></div>
+<div class="flow-step"><div class="flow-num">7</div><div class="flow-body"><div class="flow-title">Registro nos Conselhos de Classe</div><div class="flow-desc">Dependendo dos serviços: CRM (médicos que assinam laudos), CREA (engenheiros para crematórios), CRF (farmacêuticos para produtos). Verificar exigência municipal.</div></div></div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Requisitos de <span>Estrutura Física</span></h2>
+<p>A Vigilância Sanitária fiscaliza os espaços com base em normas específicas. A estrutura mínima de uma funerária com laboratório de tanatopraxia deve incluir:</p>
+<ul class="checklist">
+<li>Sala de recepção e atendimento às famílias (separada da área técnica)</li>
+<li>Câmara fria para conservação dos corpos</li>
+<li>Laboratório de tanatopraxia com ventilação forçada e exaustão</li>
+<li>Vestiário com chuveiro e separação por sexo para funcionários</li>
+<li>Área de lavagem e desinfecção de equipamentos</li>
+<li>Abrigo temporário para resíduos (RSS) identificado e trancado</li>
+<li>Piso impermeável e de fácil higienização em toda área técnica</li>
+<li>Lava-olhos e chuveiro de emergência no laboratório</li>
+<li>Sinalização de biossegurança e EPIs disponíveis</li>
+<li>Contrato com empresa licenciada para coleta de resíduos Grupo A e B</li>
+</ul>
+
+<div class="alert warn">
+<strong>⚠ Atenção:</strong> Funerárias que operam laboratório de tanatopraxia sem alvará da Vigilância Sanitária estão sujeitas a multa, interdição imediata e responsabilização criminal do responsável técnico e do proprietário.
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Checklist de <span>Abertura</span></h2>
+<ul class="checklist">
+<li>CNPJ ativo com CNAEs corretos</li>
+<li>Contrato social registrado na Junta Comercial</li>
+<li>Inscrição Estadual (se sujeito ao ICMS)</li>
+<li>Inscrição Municipal e pagamento do ISS</li>
+<li>Alvará de funcionamento da Prefeitura</li>
+<li>Licença da Vigilância Sanitária</li>
+<li>PGRSS elaborado e aprovado</li>
+<li>Contrato com empresa de coleta de RSS</li>
+<li>Contrato com empresa de coleta de resíduos químicos</li>
+<li>Seguro de responsabilidade civil profissional</li>
+<li>Registro de todos os colaboradores (CLT ou MEI)</li>
+<li>PPRA / PGR (Programa de Gerenciamento de Riscos)</li>
+<li>PCMSO (Programa de Controle Médico de Saúde Ocupacional)</li>
+</ul>
+</div>`,
+
+// ─────────────────────────────────────────────────
+m3: `
+<div class="mod-eyebrow">Módulo 03 · Operação</div>
+<h1 class="mod-h1">Gestão <strong>Operacional</strong></h1>
+<p class="mod-lead">Uma funerária bem gerida não depende de improviso. Depende de processos claros, equipe treinada e cultura de excelência. Este módulo estrutura a espinha dorsal operacional do negócio.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Os Quatro <span>Pilares Operacionais</span></h2>
+<div class="pillars">
+<div class="pillar"><div class="pillar-icon">🔄</div><div class="pillar-title">Processos</div><p>SOPs claros para cada etapa do serviço, reduzindo erros e dependência de pessoas específicas.</p></div>
+<div class="pillar"><div class="pillar-icon">👥</div><div class="pillar-title">Pessoas</div><p>Equipe treinada, bem alocada e com cultura de cuidado e responsabilidade.</p></div>
+<div class="pillar"><div class="pillar-icon">🛠️</div><div class="pillar-title">Equipamentos</div><p>Manutenção preventiva de veículos, câmaras frias, equipamentos de tanatopraxia e EPI.</p></div>
+<div class="pillar"><div class="pillar-icon">📋</div><div class="pillar-title">Documentação</div><p>Registros completos de todos os serviços realizados, garantindo rastreabilidade e compliance.</p></div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Estrutura <span>Mínima de Equipe</span></h2>
+<div class="tbl-wrap">
+<table>
+<tr><th>Cargo / Função</th><th>Responsabilidades</th><th>Obs.</th></tr>
+<tr><td><strong>Atendente Funerário</strong></td><td>Recepção de famílias, coleta de dados, orientação, documentação inicial</td><td>Perfil empático, comunicação clara</td></tr>
+<tr><td><strong>Agente Funerário / Removedor</strong></td><td>Remoção do corpo, transporte, operação de veículos funerários</td><td>Habilitação específica recomendada</td></tr>
+<tr><td><strong>Tanatopraxista</strong></td><td>Higienização, embalsamamento, tanatoestética, preparação do corpo</td><td>Formação técnica obrigatória</td></tr>
+<tr><td><strong>Coordenador Operacional</strong></td><td>Supervisão do dia a dia, escala, controle de qualidade, interface com famílias</td><td>Experiência no setor essencial</td></tr>
+<tr><td><strong>Administrativo / Financeiro</strong></td><td>Emissão de notas, contratos, contas a pagar/receber, documentação legal</td><td>Pode ser compartilhado inicialmente</td></tr>
+<tr><td><strong>Gestor / Proprietário</strong></td><td>Estratégia, compliance, relacionamento com parceiros e supervisão geral</td><td>Deve entender tecnicamente o negócio</td></tr>
+</table>
+</div>
+
+<div class="alert info">
+<strong>📌 Consultoria DMS:</strong> Para funerárias de pequeno porte, é comum o acúmulo de funções. O importante é que cada responsabilidade esteja clara e documentada, evitando que o negócio pare na ausência de uma pessoa.
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Indicadores de <span>Desempenho Operacional</span></h2>
+<p>Medir é fundamental para melhorar. Os <strong>KPIs operacionais</strong> de uma funerária devem acompanhar:</p>
+<div class="cards-2">
+<div class="card gold">
+<div class="card-icon">⏱️</div>
+<div class="card-title">Tempo de Remoção</div>
+<p>Tempo entre o acionamento e a chegada ao local do óbito. Meta recomendada: até 60 minutos em área urbana.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">✅</div>
+<div class="card-title">Taxa de Conformidade Documental</div>
+<p>Percentual de atendimentos com documentação 100% correta na primeira entrega. Meta: acima de 98%.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">😊</div>
+<div class="card-title">Satisfação da Família</div>
+<p>Avaliação pós-serviço (formulário ou contato direto). Meta: índice de satisfação acima de 90%.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">🔁</div>
+<div class="card-title">Taxa de Retrabalho</div>
+<p>Incidentes, reclamações e correções nos serviços. Meta: próximo de zero com processos bem definidos.</p>
+</div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Gestão de <span>Frotas e Equipamentos</span></h2>
+<p>Os veículos funerários são ativos críticos. Um veículo parado pode comprometer um atendimento inteiro. A gestão adequada prevê:</p>
+<ul class="checklist">
+<li>Cronograma de revisões preventivas (a cada 5.000 km ou conforme fabricante)</li>
+<li>Checklist diário de pré-saída (pneus, fluidos, limpeza, EPI a bordo)</li>
+<li>Registro de quilometragem e consumo por veículo</li>
+<li>Contrato com oficina de confiança para manutenção corretiva rápida</li>
+<li>Veículo reserva ou parceria com outra funerária para emergências</li>
+<li>Manutenção semestral das câmaras frias (temperatura, selagem, vedação)</li>
+<li>Calibração anual de bombas e equipamentos de tanatopraxia</li>
+</ul>
+</div>`,
+
+// ─────────────────────────────────────────────────
+m4: `
+<div class="mod-eyebrow">Módulo 04 · Processos</div>
+<h1 class="mod-h1">Fluxo de <strong>Atendimento Completo</strong></h1>
+<p class="mod-lead">Do primeiro contato com a família até o encerramento do serviço, cada etapa deve ser executada com precisão, empatia e documentação adequada. Este é o processo que a DMS recomenda e implementa.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Fluxo <span>Operacional Padrão</span></h2>
+<div class="flow">
+<div class="flow-step"><div class="flow-num">1</div><div class="flow-body"><div class="flow-title">Acionamento — Primeiro Contato</div><div class="flow-desc">Família ou hospital entra em contato. Atendente coleta informações: local do óbito, nome do falecido, documentos disponíveis, preferências religiosas e tipo de serviço desejado. Tom: calmo, empático e profissional.</div></div></div>
+<div class="flow-step"><div class="flow-num">2</div><div class="flow-body"><div class="flow-title">Despacho da Equipe de Remoção</div><div class="flow-desc">Agente funerário acionado com kit completo (maca, corpo bag, EPIs, documentação inicial). Contato com hospital/IML para liberação é feito em paralelo. Registro do horário de saída e chegada.</div></div></div>
+<div class="flow-step"><div class="flow-num">3</div><div class="flow-body"><div class="flow-title">Coleta de Documentação do Óbito</div><div class="flow-desc">Declaração de Óbito (DO) médica, RG/CPF do falecido, documentos do responsável familiar. Se óbito por causa externa: aguardar liberação do IML com Certidão de Óbito própria.</div></div></div>
+<div class="flow-step"><div class="flow-num">4</div><div class="flow-body"><div class="flow-title">Remoção do Corpo</div><div class="flow-desc">Com todos os EPIs. Uso de maca rígida e body bag. Comunicação respeitosa com família presente. Checklist de pertences do falecido assinado por familiar. Transporte ao laboratório ou ao velório conforme necessidade.</div></div></div>
+<div class="flow-step"><div class="flow-num">5</div><div class="flow-body"><div class="flow-title">Preparação no Laboratório</div><div class="flow-desc">Higienização, tanatopraxia (se necessária ou solicitada), tanatoestética, vestimenta. Ata de Tanatopraxia preenchida. Termo de autorização de embalsamamento assinado pela família antes do procedimento.</div></div></div>
+<div class="flow-step"><div class="flow-num">6</div><div class="flow-body"><div class="flow-title">Atendimento Comercial — Contrato de Serviços</div><div class="flow-desc">Apresentação dos planos e serviços disponíveis. Assinatura do contrato de prestação de serviços com todos os itens detalhados. Forma de pagamento definida. Informações claras sobre o que está e o que não está incluído.</div></div></div>
+<div class="flow-step"><div class="flow-num">7</div><div class="flow-body"><div class="flow-title">Registro Civil — Cartório</div><div class="flow-desc">Orientação à família para registro do óbito no Cartório de Registro Civil e obtenção da Certidão de Óbito. A funerária pode facilitar esse processo como diferencial de atendimento.</div></div></div>
+<div class="flow-step"><div class="flow-num">8</div><div class="flow-body"><div class="flow-title">Velório</div><div class="flow-desc">Preparação do espaço conforme preferências da família. Iluminação, flores, música, acesso. Equipe de apoio disponível durante todo o período. Registro fotográfico do espaço (para qualidade e para redes sociais, com autorização).</div></div></div>
+<div class="flow-step"><div class="flow-num">9</div><div class="flow-body"><div class="flow-title">Cortejo e Sepultamento / Cremação</div><div class="flow-desc">Organização do cortejo, comunicação com cemitério ou crematório. Documentação necessária. Apoio à família durante o sepultamento. Encerramento respeitoso do serviço.</div></div></div>
+<div class="flow-step"><div class="flow-num">10</div><div class="flow-body"><div class="flow-title">Pós-Serviço — Encerramento e Registro</div><div class="flow-desc">Contato pós-serviço com a família (1 a 3 dias após). Pesquisa de satisfação. Arquivamento da documentação. Emissão de nota fiscal. Registro no sistema interno. Análise de pontos de melhoria.</div></div></div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Documentação <span>por Etapa</span></h2>
+<div class="tbl-wrap">
+<table>
+<tr><th>Etapa</th><th>Documentos Necessários</th><th>Responsável</th></tr>
+<tr><td>Remoção</td><td>Autorização de remoção, checklist de pertences</td><td>Agente funerário</td></tr>
+<tr><td>Tanatopraxia</td><td>Ata de tanatopraxia, termo de autorização</td><td>Tanatopraxista</td></tr>
+<tr><td>Contrato</td><td>Contrato de serviços, recibo de sinal</td><td>Atendente / Gerência</td></tr>
+<tr><td>Cartório</td><td>Declaração de Óbito, Certidão de Óbito</td><td>Família (apoiada pela funerária)</td></tr>
+<tr><td>Translado</td><td>Guia de translado, laudo de embalsamamento</td><td>Coordenador operacional</td></tr>
+<tr><td>Encerramento</td><td>Nota fiscal, pesquisa de satisfação, arquivo completo</td><td>Administrativo</td></tr>
+</table>
+</div>
+</div>
+
+<div class="alert success">
+<strong>✓ Boas Práticas DMS:</strong> Cada atendimento deve ter uma pasta (física ou digital) com toda a documentação. Isso protege juridicamente a empresa, facilita auditorias e garante rastreabilidade total do serviço prestado.
+</div>`,
+
+// ─────────────────────────────────────────────────
+m5: `
+<div class="mod-eyebrow">Módulo 05 · Humanização</div>
+<h1 class="mod-h1">Atendimento <strong>Humanizado à Família</strong></h1>
+<p class="mod-lead">A família enlutada está no momento mais vulnerável de sua vida. A forma como sua equipe atende nesse momento define não apenas a reputação da sua empresa, mas o processo de luto de cada pessoa.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Por que a <span>Humanização é Estratégica</span></h2>
+<p>Atendimento humanizado não é apenas uma questão ética — é a <strong>principal vantagem competitiva</strong> de uma funerária. Em um mercado onde os serviços são tecnicamente similares, o <strong>como você atende</strong> é o diferencial que gera recomendação, fidelização e reputação.</p>
+<div class="cards-2">
+<div class="card gold">
+<div class="card-icon">💬</div>
+<div class="card-title">Impacto no Boca a Boca</div>
+<p>Famílias bem atendidas se tornam promotoras espontâneas. Uma má experiência, por outro lado, se espalha com muito mais velocidade.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">🏆</div>
+<div class="card-title">Diferencial Competitivo Real</div>
+<p>Em mercados onde o preço é semelhante, o atendimento humanizado é o que fecha contratos e justifica valores premium.</p>
+</div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">As <span>Fases do Luto</span> e o Papel da Funerária</h2>
+<p>Baseado no modelo de Elisabeth Kübler-Ross, o profissional funerário interagirá com famílias em diferentes fases:</p>
+<div class="flow">
+<div class="flow-step"><div class="flow-num">1</div><div class="flow-body"><div class="flow-title">Negação</div><div class="flow-desc">Família pode não absorver informações. Repetir com calma, não forçar decisões rápidas. Ter paciência e não demonstrar impaciência com perguntas repetidas.</div></div></div>
+<div class="flow-step"><div class="flow-num">2</div><div class="flow-body"><div class="flow-title">Raiva</div><div class="flow-desc">Podem direcionar raiva ao serviço ou à equipe sem razão objetiva. Não reagir defensivamente. Reconhecer a dor por trás da agressividade e redirecionar para soluções.</div></div></div>
+<div class="flow-step"><div class="flow-num">3</div><div class="flow-body"><div class="flow-title">Barganha</div><div class="flow-desc">Família pode pedir alterações de última hora ou questionar preços. Ser flexível dentro do possível, sempre documentando qualquer mudança.</div></div></div>
+<div class="flow-step"><div class="flow-num">4</div><div class="flow-body"><div class="flow-title">Depressão</div><div class="flow-desc">Família pode estar incapaz de tomar decisões. Oferecer opções simplificadas, auxiliar no processo e ter alguém de referência disponível.</div></div></div>
+<div class="flow-step"><div class="flow-num">5</div><div class="flow-body"><div class="flow-title">Aceitação</div><div class="flow-desc">Momento mais adequado para informações práticas sobre documentação, encerramento financeiro e serviços adicionais.</div></div></div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Protocolo de <span>Atendimento Humanizado</span></h2>
+<div class="sec-h3">Comunicação Verbal</div>
+<ul class="checklist">
+<li class="done">Tom de voz calmo, pausado e empático em todo momento</li>
+<li class="done">Linguagem acessível — evitar jargões técnicos desnecessários</li>
+<li class="done">Escuta ativa: deixar a família falar sem interrupções</li>
+<li class="done">Validar emoções sem minimizar ou exagerar o sofrimento</li>
+<li class="done">Perguntas abertas para entender preferências e necessidades</li>
+<li class="done">Nunca demonstrar pressa ou impaciência</li>
+</ul>
+
+<div class="sec-h3">Comunicação Não-Verbal</div>
+<ul class="checklist">
+<li class="done">Postura aberta, sem braços cruzados ou olhar desviado</li>
+<li class="done">Contato visual adequado — sem fixar nem desviar constantemente</li>
+<li class="done">Vestuário sóbrio e apresentação impecável da equipe</li>
+<li class="done">Espaço de atendimento limpo, silencioso e acolhedor</li>
+<li class="done">Oferecer água ou café discretamente, sem pressionar</li>
+</ul>
+
+<div class="sec-h3">Situações Especiais</div>
+<div class="cards-2">
+<div class="card"><div class="card-icon">👶</div><div class="card-title">Óbito Infantil</div><p>Máxima sensibilidade. Nunca usar frases minimizadoras. Equipe deve estar preparada emocionalmente e ter protocolo específico.</p></div>
+<div class="card"><div class="card-icon">💔</div><div class="card-title">Morte Súbita / Suicídio</div><p>Família em choque agudo. Foco em apoio imediato. Não fazer perguntas desnecessárias. Acionamento de apoio psicológico se disponível.</p></div>
+<div class="card"><div class="card-icon">⚔️</div><div class="card-title">Conflito Familiar</div><p>Postura neutra obrigatória. Aguardar consenso ou definição do responsável legal. Documentar todas as tratativas.</p></div>
+<div class="card"><div class="card-icon">🌍</div><div class="card-title">Diversidade Cultural/Religiosa</div><p>Respeitar práticas religiosas e culturais sem julgamento. Equipe deve conhecer os rituais das principais religiões da região.</p></div>
+</div>
+</div>
+
+<div class="quote">
+"A última imagem que a família tem do ente querido fica para sempre. Uma tanatopraxia bem feita e um atendimento humanizado são o maior presente que podemos oferecer nesse momento."
+<span class="quote-author">— Davi Moreira da Silva, DMS Consultoria</span>
+</div>`,
+
+// ─────────────────────────────────────────────────
+m6: `
+<div class="mod-eyebrow">Módulo 06 · Financeiro</div>
+<h1 class="mod-h1">Gestão <strong>Financeira e Precificação</strong></h1>
+<p class="mod-lead">Funerárias que não controlam suas finanças com rigor frequentemente fecham as portas ou operam no limite, mesmo com alta demanda. Preço correto e controle de custos são fundamentais para a sustentabilidade do negócio.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Estrutura de <span>Custos Funerários</span></h2>
+<p>Para precificar corretamente, é preciso conhecer todos os custos envolvidos em um atendimento. A DMS classifica os custos em três grupos:</p>
+
+<div class="sec-h3">Custos Diretos por Atendimento</div>
+<div class="tbl-wrap">
+<table>
+<tr><th>Item</th><th>Custo Médio Estimado</th><th>Variabilidade</th></tr>
+<tr><td>Urna/caixão (básico)</td><td>R$ 800 – R$ 2.500</td><td>Alta — depende do modelo</td></tr>
+<tr><td>Fluidos de embalsamamento</td><td>R$ 80 – R$ 200</td><td>Baixa</td></tr>
+<tr><td>EPIs por atendimento</td><td>R$ 15 – R$ 40</td><td>Baixa</td></tr>
+<tr><td>Transporte (combustível + desgaste)</td><td>R$ 60 – R$ 180</td><td>Média — depende da distância</td></tr>
+<tr><td>Taxa de sepultamento (cemitério)</td><td>R$ 300 – R$ 1.200</td><td>Alta — varia por cemitério</td></tr>
+<tr><td>Flores e ornamentação</td><td>R$ 0 – R$ 500</td><td>Alta — depende do serviço</td></tr>
+<tr><td>Documentação e cartório</td><td>R$ 30 – R$ 80</td><td>Baixa</td></tr>
+</table>
+</div>
+
+<div class="sec-h3">Custos Fixos Mensais</div>
+<ul class="checklist">
+<li>Folha de pagamento e encargos sociais (maior custo fixo)</li>
+<li>Aluguel ou financiamento do imóvel</li>
+<li>Manutenção e seguro dos veículos</li>
+<li>Energia elétrica (câmara fria consome muito)</li>
+<li>Licenças, alvarás e renovações anuais rateados mensalmente</li>
+<li>Marketing e presença digital</li>
+<li>Contabilidade e assessoria jurídica</li>
+<li>Descarte de resíduos (RSS)</li>
+</ul>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Metodologia de <span>Precificação</span></h2>
+<p>A fórmula base para precificação é:</p>
+<div class="dms-box">
+<div class="dms-box-title">📐 Fórmula DMS de Precificação</div>
+<p><strong>Preço Mínimo = (Custos Diretos + Rateio dos Custos Fixos + Impostos) ÷ (1 – Margem de Lucro Desejada)</strong></p>
+<p>Exemplo: Custos diretos R$ 1.500 + Rateio fixo R$ 600 + Impostos 8% → Base R$ 2.100. Com 30% de margem: R$ 2.100 ÷ 0,70 = <strong>R$ 3.000 (preço mínimo)</strong>.</p>
+<p>O preço de mercado pode ser superior ao mínimo — e deve ser, se há diferencial de qualidade. Nunca pratique preços abaixo do custo.</p>
+</div>
+
+<div class="sec-h3">Tabela de Serviços Recomendada</div>
+<div class="tbl-wrap">
+<table>
+<tr><th>Serviço</th><th>Custo Base</th><th>Preço Sugerido</th><th>Margem</th></tr>
+<tr><td>Serviço básico (remoção + urna + velório + sepultamento)</td><td>R$ 2.200</td><td>R$ 3.500 – R$ 5.000</td><td>37–56%</td></tr>
+<tr><td>Serviço com tanatopraxia completa</td><td>R$ 2.800</td><td>R$ 5.000 – R$ 7.500</td><td>44–63%</td></tr>
+<tr><td>Tanatopraxia isolada (para outras funerárias)</td><td>R$ 350</td><td>R$ 800 – R$ 1.500</td><td>56–77%</td></tr>
+<tr><td>Translado terrestre (por km)</td><td>R$ 1,20/km</td><td>R$ 2,50 – R$ 4,00/km</td><td>52–70%</td></tr>
+<tr><td>Translado aéreo nacional</td><td>R$ 1.800</td><td>R$ 3.500 – R$ 5.000</td><td>49–64%</td></tr>
+<tr><td>Plano funerário mensal</td><td>Rateio</td><td>R$ 35 – R$ 80/mês</td><td>Variável</td></tr>
+</table>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Controle <span>Financeiro</span></h2>
+<p>O controle financeiro mínimo de uma funerária deve incluir:</p>
+<ul class="checklist">
+<li class="done">Fluxo de caixa diário (entradas e saídas do dia)</li>
+<li class="done">DRE mensal (demonstrativo de resultado do exercício simplificado)</li>
+<li class="done">Controle de inadimplência (parcelamentos e planos funerários)</li>
+<li class="done">Fundo de reserva para emergências operacionais (mínimo 3 meses de custos fixos)</li>
+<li class="done">Separação entre finanças pessoais e da empresa</li>
+<li class="done">Nota fiscal emitida em 100% dos atendimentos</li>
+</ul>
+
+<div class="alert warn">
+<strong>⚠ Erro Frequente:</strong> Muitos donos de funerária tiram dinheiro do caixa sem controle, misturando finanças pessoais e empresariais. Isso é a principal causa de falência em empresas saudáveis do setor. A DMS implementa um sistema de pró-labore fixo para resolver isso.
+</div>
+</div>`,
+
+// ─────────────────────────────────────────────────
+m7: `
+<div class="mod-eyebrow">Módulo 07 · Marketing</div>
+<h1 class="mod-h1">Marketing <strong>Funerário Estratégico</strong></h1>
+<p class="mod-lead">Marketing funerário não é sobre anunciar a morte — é sobre construir uma reputação de confiança antes que as famílias precisem dos seus serviços. Posicionamento correto atrai os clientes certos no momento certo.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Posicionamento de <span>Marca</span></h2>
+<p>Antes de qualquer ação de marketing, a funerária precisa definir claramente sua <strong>proposta de valor</strong>: o que ela oferece que nenhum concorrente oferece da mesma forma.</p>
+
+<div class="cards-2">
+<div class="card gold">
+<div class="card-icon">🎯</div>
+<div class="card-title">Posicionamento por Qualidade</div>
+<p>"Somos a funerária mais especializada da região. Cada detalhe importa, da tanatopraxia ao atendimento familiar."</p>
+</div>
+<div class="card gold">
+<div class="card-icon">❤️</div>
+<div class="card-title">Posicionamento por Humanização</div>
+<p>"Cuidamos de cada família como se fosse a nossa. Não somos apenas um serviço — somos um apoio no momento mais difícil."</p>
+</div>
+</div>
+
+<div class="dms-box">
+<div class="dms-box-title">✦ Posicionamento DMS Recomendado</div>
+<p>Para a maioria das funerárias clientes da consultoria DMS, o posicionamento ideal combina <strong>excelência técnica + atendimento humanizado</strong>. Isso permite cobrar preços premium e atrair famílias que valorizam qualidade acima de preço baixo.</p>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Canais de <span>Captação</span></h2>
+
+<div class="sec-h3">1. Relacionamento com Hospitais e Clínicas</div>
+<p>O canal mais eficiente para funerárias locais. Construir relacionamento com assistentes sociais, enfermeiros e médicos de UTI gera indicações constantes. Visitas periódicas com material institucional fazem diferença.</p>
+
+<div class="sec-h3">2. Planos Funerários e Clubes de Benefícios</div>
+<p>Clientes de planos funerários já estão fidelizados antes do óbito. Parceria com associações de servidores, sindicatos e cooperativas pode gerar carteiras expressivas de planos.</p>
+
+<div class="sec-h3">3. Presença Digital</div>
+<div class="cards-3">
+<div class="card">
+<div class="card-icon">📍</div>
+<div class="card-title">Google Meu Negócio</div>
+<p>Perfil completo e atualizado. Avaliações positivas. Horário e telefone corretos. Aparece em pesquisas locais.</p>
+</div>
+<div class="card">
+<div class="card-icon">📱</div>
+<div class="card-title">Instagram / Facebook</div>
+<p>Conteúdo educativo sobre o luto, processo funerário, dicas para famílias. Não publicar imagens de corpos.</p>
+</div>
+<div class="card">
+<div class="card-icon">🌐</div>
+<div class="card-title">Site Profissional</div>
+<p>Com informações claras, formulário de contato, tabela de serviços e depoimentos de famílias (com autorização).</p>
+</div>
+</div>
+
+<div class="sec-h3">4. Parcerias Estratégicas</div>
+<ul class="checklist">
+<li class="done">Cemitérios e crematórios — indicações mútuas</li>
+<li class="done">Cartórios de registro civil — fluxo natural de documentação</li>
+<li class="done">IML e delegacias — para óbitos por causas externas</li>
+<li class="done">Igrejas e templos religiosos — conhecimento da comunidade</li>
+<li class="done">Planos de saúde e seguradoras com cobertura funerária</li>
+</ul>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Conteúdo que <span>Constrói Reputação</span></h2>
+<p>O marketing funerário deve <strong>educar e humanizar</strong>, não vender morte. Temas recomendados para redes sociais e blog:</p>
+<div class="cards-2">
+<div class="card"><div class="card-icon">📖</div><div class="card-title">Educativo</div><p>Como funciona a tanatopraxia, quais documentos são necessários, diferença entre cremação e sepultamento, planos funerários.</p></div>
+<div class="card"><div class="card-icon">💛</div><div class="card-title">Humanizador</div><p>A importância da despedida, como apoiar alguém em luto, rituais funerários pelo mundo, histórias de superação do luto.</p></div>
+<div class="card"><div class="card-icon">🏆</div><div class="card-title">Institucional</div><p>Certificações, formações da equipe, estrutura da empresa, diferenciais técnicos, depoimentos de famílias satisfeitas.</p></div>
+<div class="card"><div class="card-icon">📋</div><div class="card-title">Informativo</div><p>Alterações na legislação funerária, novidades do setor, dicas de organização documental para famílias.</p></div>
+</div>
+</div>`,
+
+// ─────────────────────────────────────────────────
+m8: `
+<div class="mod-eyebrow">Módulo 08 · Legislação</div>
+<h1 class="mod-h1">Legislação e <strong>Compliance Funerário</strong></h1>
+<p class="mod-lead">O setor funerário é regulado por múltiplas normas federais, estaduais e municipais. O desconhecimento da legislação não isenta a empresa de penalidades. A conformidade é responsabilidade da gestão.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Principal <span>Marco Regulatório</span></h2>
+<div class="tbl-wrap">
+<table>
+<tr><th>Norma</th><th>Órgão</th><th>O que regula</th></tr>
+<tr><td>NR-32 / MTE</td><td>Ministério do Trabalho</td><td>Segurança e saúde no trabalho em serviços de saúde</td></tr>
+<tr><td>RDC 222/2018</td><td>ANVISA</td><td>Gerenciamento de resíduos de serviços de saúde (RSS)</td></tr>
+<tr><td>Resolução CFM 1.681/2003</td><td>CFM</td><td>Embalsamamento e conservação de corpos</td></tr>
+<tr><td>Portaria MS 2.148/2009</td><td>Ministério da Saúde</td><td>Transporte inter-estadual e internacional de corpos</td></tr>
+<tr><td>Resolução ANAC 25/2008</td><td>ANAC</td><td>Transporte aéreo de corpos humanos</td></tr>
+<tr><td>Art. 212 do Código Penal</td><td>—</td><td>Vilipêndio a cadáver — crime</td></tr>
+<tr><td>LGPD — Lei 13.709/2018</td><td>ANPD</td><td>Proteção de dados pessoais de falecidos e familiares</td></tr>
+<tr><td>CDC — Lei 8.078/1990</td><td>SENACON</td><td>Direitos do consumidor — família é consumidora</td></tr>
+<tr><td>Lei de Registros Públicos 6.015/73</td><td>—</td><td>Prazo e procedimentos de registro de óbito</td></tr>
+</table>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Biossegurança no <span>Laboratório</span></h2>
+<p>O laboratório de tanatopraxia é o ambiente de maior risco da operação funerária. A NR-32 e a ANVISA estabelecem requisitos claros:</p>
+
+<div class="sec-h3">EPIs Obrigatórios por Função</div>
+<div class="tbl-wrap">
+<table>
+<tr><th>EPI</th><th>Especificação</th><th>Troca</th></tr>
+<tr><td>Luvas</td><td>Nitrílicas, duplas (látex por baixo)</td><td>A cada atendimento</td></tr>
+<tr><td>Respirador</td><td>PFF2/PFF3 ou com filtro para gases orgânicos</td><td>Conforme fabricante</td></tr>
+<tr><td>Óculos / Viseira</td><td>Proteção total contra respingos</td><td>Higienizar após uso</td></tr>
+<tr><td>Avental</td><td>Impermeável, manga longa</td><td>A cada atendimento ou quando contaminado</td></tr>
+<tr><td>Botas / Propé</td><td>Impermeáveis, antiderrapantes</td><td>Higienizar após uso</td></tr>
+<tr><td>Touca</td><td>Descartável, cobrindo todo o cabelo</td><td>A cada atendimento</td></tr>
+</table>
+</div>
+
+<div class="alert warn">
+<strong>⚠ Risco Criminal:</strong> O Art. 212 do CP (vilipêndio a cadáver) pode ser enquadrado em situações como fotografar o corpo sem autorização, causar danos desnecessários, ou realizar procedimentos sem consentimento familiar. Toda a equipe deve ser treinada sobre os limites legais de atuação.
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Responsabilidade <span>Civil e Criminal</span></h2>
+<div class="cards-2">
+<div class="card"><div class="card-icon">⚖️</div><div class="card-title">Responsabilidade Civil</div><p>A empresa pode ser processada por: má preservação do corpo, erros de identificação, danos a pertences, serviços não prestados conforme contrato, vazamento de informações pessoais.</p></div>
+<div class="card"><div class="card-icon">🚔</div><div class="card-title">Responsabilidade Criminal</div><p>O responsável técnico e/ou proprietário pode responder por: vilipêndio (Art. 212), falsidade ideológica em documentos, operação sem licença sanitária, descarte irregular de resíduos biológicos.</p></div>
+</div>
+<p>A <strong>proteção mais eficaz</strong> é a combinação de: processos documentados, termo de consentimento assinado, equipe treinada e compliance regulatório rigoroso.</p>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">LGPD no <span>Setor Funerário</span></h2>
+<p>A Lei Geral de Proteção de Dados obriga as funerárias a:</p>
+<ul class="checklist">
+<li class="done">Informar quais dados são coletados e para qual finalidade</li>
+<li class="done">Obter consentimento expresso para uso de dados pessoais</li>
+<li class="done">Guardar dados de forma segura (não em cadernos ou planilhas abertas)</li>
+<li class="done">Não compartilhar dados de familiares sem autorização</li>
+<li class="done">Ter política de privacidade disponível para consulta</li>
+<li class="done">Excluir dados quando solicitado (dentro dos limites legais)</li>
+</ul>
+</div>`,
+
+// ─────────────────────────────────────────────────
+m9: `
+<div class="mod-eyebrow">Módulo 09 · Pessoas</div>
+<h1 class="mod-h1">Gestão de <strong>Pessoas e Cultura</strong></h1>
+<p class="mod-lead">A equipe de uma funerária carrega um peso emocional único. Uma gestão de pessoas inadequada gera alta rotatividade, erros operacionais e burnout — com impacto direto na qualidade do atendimento às famílias.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Recrutamento e <span>Seleção</span></h2>
+<p>Contratar errado é um dos maiores custos de uma funerária. Além das competências técnicas, existem perfis comportamentais críticos para cada função:</p>
+<div class="tbl-wrap">
+<table>
+<tr><th>Função</th><th>Competências Técnicas</th><th>Perfil Comportamental</th></tr>
+<tr><td>Atendente</td><td>Comunicação, conhecimento básico de documentação</td><td>Empatia alta, paciência, equilíbrio emocional</td></tr>
+<tr><td>Tanatopraxista</td><td>Formação técnica, biossegurança, anatomia</td><td>Responsabilidade, atenção a detalhes, ética</td></tr>
+<tr><td>Agente funerário</td><td>Habilitação, manuseio de corpo, primeiros procedimentos</td><td>Serenidade, discrição, força física e emocional</td></tr>
+<tr><td>Coordenador</td><td>Gestão de processos, conhecimento legal, operacional</td><td>Liderança, resolução de conflitos, comunicação</td></tr>
+</table>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Treinamento e <span>Capacitação Contínua</span></h2>
+<p>No setor funerário, a capacitação não é opcional — é uma exigência operacional e legal. O plano de treinamento DMS prevê:</p>
+<div class="flow">
+<div class="flow-step"><div class="flow-num">1</div><div class="flow-body"><div class="flow-title">Onboarding Estruturado (primeiros 30 dias)</div><div class="flow-desc">Apresentação dos processos, cultura da empresa, legislação básica, EPIs, fluxo de atendimento e acompanhamento por colega experiente.</div></div></div>
+<div class="flow-step"><div class="flow-num">2</div><div class="flow-body"><div class="flow-title">Treinamento Técnico Específico por Função</div><div class="flow-desc">Tanatopraxia, atendimento humanizado, gestão documental, biossegurança — conforme a função de cada colaborador.</div></div></div>
+<div class="flow-step"><div class="flow-num">3</div><div class="flow-body"><div class="flow-title">Reciclagem Semestral Obrigatória</div><div class="flow-desc">Atualização de procedimentos, legislação, novidades do setor e reforço de pontos críticos identificados na operação.</div></div></div>
+<div class="flow-step"><div class="flow-num">4</div><div class="flow-body"><div class="flow-title">Apoio Psicológico Contínuo</div><div class="flow-desc">Acesso a apoio psicológico (individual ou grupo) para lidar com o peso emocional da profissão. Fundamental para prevenir burnout.</div></div></div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Prevenção de <span>Burnout Ocupacional</span></h2>
+<p>O setor funerário tem uma das maiores taxas de burnout entre profissionais de saúde e cuidado. A exposição diária à morte e ao sofrimento exige atenção especial da gestão:</p>
+
+<div class="cards-2">
+<div class="card"><div class="card-icon">🧠</div><div class="card-title">Sinais de Alerta</div><p>Esgotamento emocional constante, distanciamento afetivo, sensação de baixa realização, irritabilidade, absenteísmo e erros operacionais crescentes.</p></div>
+<div class="card green"><div class="card-icon">🌿</div><div class="card-title">Medidas Preventivas</div><p>Rodízio de funções mais pesadas, folgas reais, atividades de integração, acompanhamento psicológico e liderança que valida o trabalho da equipe.</p></div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Cultura <span>Organizacional</span></h2>
+<p>A cultura de uma funerária deve refletir seus valores em cada interação — interna e externa. A DMS ajuda a construir uma cultura baseada em:</p>
+<div class="pillars">
+<div class="pillar"><div class="pillar-icon">🎖️</div><div class="pillar-title">Dignidade</div><p>Cada corpo tratado com o máximo respeito. Sem exceções.</p></div>
+<div class="pillar"><div class="pillar-icon">🤝</div><div class="pillar-title">Empatia</div><p>Família em primeiro lugar. A dor deles é real e merece acolhimento.</p></div>
+<div class="pillar"><div class="pillar-icon">⭐</div><div class="pillar-title">Excelência</div><p>Fazer bem feito sempre, mesmo quando ninguém está vendo.</p></div>
+<div class="pillar"><div class="pillar-icon">🔐</div><div class="pillar-title">Ética</div><p>Transparência com famílias, documentação correta e compliance rigoroso.</p></div>
+</div>
+</div>`,
+
+// ─────────────────────────────────────────────────
+m10: `
+<div class="mod-eyebrow">Módulo 10 · Plano de Ação</div>
+<h1 class="mod-h1">Plano de Ação <strong>DMS — Implementação</strong></h1>
+<p class="mod-lead">Todo o conteúdo desta apostila se transforma em resultado quando aplicado. Este módulo apresenta o plano de implementação da consultoria DMS, as etapas do processo e como começar agora.</p>
+
+<div class="sec">
+<h2 class="sec-h2">Diagnóstico <span>Inicial — DMS Assessment</span></h2>
+<p>A consultoria DMS começa com um <strong>diagnóstico completo</strong> da empresa ou do projeto, mapeando pontos fortes, lacunas críticas e prioridades de implementação. O Assessment cobre:</p>
+<ul class="checklist">
+<li class="done">Análise da estrutura jurídica e compliance regulatório</li>
+<li class="done">Mapeamento dos processos operacionais atuais</li>
+<li class="done">Avaliação da estrutura física e equipamentos</li>
+<li class="done">Análise financeira: custos, precificação e margens</li>
+<li class="done">Avaliação da equipe: perfil, treinamento e cultura</li>
+<li class="done">Análise de mercado local e posicionamento</li>
+<li class="done">Identificação de riscos legais e operacionais imediatos</li>
+</ul>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Plano de <span>Implementação — 90 Dias</span></h2>
+<div class="flow">
+<div class="flow-step"><div class="flow-num">1</div><div class="flow-body"><div class="flow-title">SEMANAS 1-2 — Diagnóstico e Priorização</div><div class="flow-desc">Reunião inicial com Davi. Coleta de documentos e informações. Assessment completo. Relatório de diagnóstico com prioridades claras e cronograma de implementação.</div></div></div>
+<div class="flow-step"><div class="flow-num">2</div><div class="flow-body"><div class="flow-title">SEMANAS 3-4 — Regularização Urgente</div><div class="flow-desc">Correção de pendências legais e sanitárias críticas. Atualização de licenças. PGRSS. Adequação de EPIs e EPCs. Nenhuma irregularidade grave deve permanecer.</div></div></div>
+<div class="flow-step"><div class="flow-num">3</div><div class="flow-body"><div class="flow-title">MÊS 2 — Processos e Documentação</div><div class="flow-desc">Criação ou revisão dos SOPs (Procedimentos Operacionais Padrão). Fluxo de atendimento documentado. Formulários, contratos e termos padronizados. Treinamento da equipe nos novos processos.</div></div></div>
+<div class="flow-step"><div class="flow-num">4</div><div class="flow-body"><div class="flow-title">MÊS 2-3 — Financeiro e Precificação</div><div class="flow-desc">Levantamento de custos reais. Revisão da tabela de preços. Implantação de controle financeiro básico. Definição de pró-labore e reserva de emergência.</div></div></div>
+<div class="flow-step"><div class="flow-num">5</div><div class="flow-body"><div class="flow-title">MÊS 3 — Marketing e Posicionamento</div><div class="flow-desc">Definição de posicionamento. Atualização ou criação de presença digital. Material institucional. Início das parcerias estratégicas. Google Meu Negócio atualizado.</div></div></div>
+<div class="flow-step"><div class="flow-num">6</div><div class="flow-body"><div class="flow-title">APÓS 90 DIAS — Monitoramento Contínuo</div><div class="flow-desc">KPIs definidos e acompanhados mensalmente. Reuniões periódicas de acompanhamento com Davi. Ajustes contínuos. Capacitação da equipe. Crescimento sustentável.</div></div></div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Modalidades de <span>Consultoria DMS</span></h2>
+<div class="cards-3">
+<div class="card gold">
+<div class="card-icon">🔍</div>
+<div class="card-title">Diagnóstico Avulso</div>
+<p>Relatório completo de diagnóstico com prioridades e plano de ação. Ideal para quem quer um mapa antes de começar.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">🛠️</div>
+<div class="card-title">Consultoria 90 Dias</div>
+<p>Implementação completa do plano de ação. Acompanhamento semanal com Davi. Da regularização ao posicionamento de mercado.</p>
+</div>
+<div class="card gold">
+<div class="card-icon">🤝</div>
+<div class="card-title">Mentoria Contínua</div>
+<p>Parceria de longo prazo. Acesso direto a Davi para dúvidas, crises e estratégia. Reuniões mensais e suporte via WhatsApp.</p>
+</div>
+</div>
+</div>
+
+<div class="sec">
+<h2 class="sec-h2">Entrar em <span>Contato com a DMS</span></h2>
+<div class="dms-box">
+<div class="dms-box-title">✦ Davi Moreira da Silva — DMS Consultoria Funerária</div>
+<p>📞 <strong>WhatsApp:</strong> (33) 99960-3507</p>
+<p>🏢 <strong>CNPJ:</strong> 66.552.163/0001-95</p>
+<p>📋 <strong>Registro Profissional:</strong> 17046487</p>
+<p>📍 <strong>Atendimento:</strong> Presencial (MG) e Online para todo o Brasil</p>
+<p style="margin-top:1rem;color:var(--gold2);">A DMS não oferece consultoria genérica. Cada projeto é tratado de forma personalizada, com diagnóstico real e implementação acompanhada por Davi pessoalmente.</p>
+</div>
+
+<div class="quote">
+"Profissionalizar uma funerária não é sobre perder a humanidade do negócio. É sobre garantir que a excelência humana seja entregue de forma consistente, em cada atendimento, para cada família."
+<span class="quote-author">— Davi Moreira da Silva, DMS Consultoria Funerária</span>
+</div>
+</div>`,
+
+};
+
+// ══════════════════════════════════════════════════
+//  NAVEGAÇÃO
+// ══════════════════════════════════════════════════
+let curMod = 0;
+
+function abrirApostila() {
+  document.getElementById('cover').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  buildSidebar();
+  showMod(0);
+}
+
+function voltarCapa() {
+  document.getElementById('cover').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
+
+function buildSidebar() {
+  const el = document.getElementById('sbList');
+  el.innerHTML = MODS.map((m, i) => `
+    <div class="sb-item ${i===0?'active':''}" id="sb-${i}" onclick="showMod(${i})">
+      <div class="sb-num">${m.num}</div>
+      <div class="sb-txt">
+        <div class="sb-title">${m.title}</div>
+        <div class="sb-sub">${m.sub}</div>
+      </div>
+    </div>`).join('');
+}
+
+function showMod(idx) {
+  curMod = idx;
+  // sidebar
+  document.querySelectorAll('.sb-item').forEach((el,i) => el.classList.toggle('active', i===idx));
+  // content
+  const content = document.getElementById('mainContent');
+  content.innerHTML = CONTENT[MODS[idx].id] + buildNavBottom(idx);
+  content.scrollTop = 0;
+  window.scrollTo(0,0);
+  // close mobile sidebar
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+function buildNavBottom(idx) {
+  const prev = idx > 0
+    ? `<button class="btn-nav" onclick="showMod(${idx-1})">← ${MODS[idx-1].title}</button>`
+    : `<button class="btn-nav" onclick="voltarCapa()">← Capa</button>`;
+  const next = idx < MODS.length-1
+    ? `<button class="btn-nav next" onclick="showMod(${idx+1})">${MODS[idx+1].title} →</button>`
+    : `<button class="btn-nav next" onclick="voltarCapa()">✦ Concluído</button>`;
+  return `<div class="nav-bottom">${prev}<span style="font-size:.72rem;color:var(--gray);font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;">${idx+1} / ${MODS.length}</span>${next}</div>`;
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+</script>
+</body>
+</html>
